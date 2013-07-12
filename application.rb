@@ -1,7 +1,8 @@
 require "sinatra"
+require "slim"
 
-get "/gpio" do
-end
+set :views, ['views']
 
-post "/gpio_control/" do
+get "/" do
+  slim :gpio_index
 end
