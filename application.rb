@@ -4,5 +4,9 @@ require "slim"
 set :views, ['views']
 
 get "/" do
-  slim :gpio_index
+  slim :index
+end
+
+get "/gpio" do
+  slim :gpio
 end
