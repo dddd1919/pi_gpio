@@ -10,3 +10,7 @@ end
 get "/gpio" do
   slim :gpio
 end
+
+get "/about" do
+  slim :about
+end
