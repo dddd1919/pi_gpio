@@ -1,0 +1,36 @@
+<div class="gpio_board" align="center" style="margin-top:75">
+  <table id="RPiHeader" border=18>
+    <tr>
+      <th><span class="label label-inverse">输入输出</span></th>
+      <th><span class="label label-inverse">端口号</span></th>
+      <th><span class="label label-inverse">端口状态</span></th>
+      <th><span class="label label-inverse">端口状态</span></th>
+      <th><span class="label label-inverse">端口号</span></th>
+      <th><span class="label label-inverse">输入输出</span></th>
+    </tr>
+    <tbody>
+      <% for i in (1..13) do %>
+      <tr>
+        <td class="pbm">
+          <input type="checkbox" data-toggle="switch" />
+        </td>
+        <td><span class="badge badge-warning"><%= 2*i-1%></span></td>
+        <td>
+          <label class="checkbox" for="checkbox2">
+            <input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox" checked="">
+          </label>
+        </td>
+        <td>
+          <label class="checkbox" for="checkbox2">
+            <input type="checkbox" checked="checked" value="" id="checkbox2" data-toggle="checkbox" checked="">
+          </label>
+        </td>
+        <td><span class="badge badge-warning"><%= 2*i %></span></td>
+        <td class="pbm">
+          <input type="checkbox" data-toggle="switch" />
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

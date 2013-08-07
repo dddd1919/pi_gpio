@@ -1,16 +1,16 @@
 require "sinatra"
-require "slim"
+require "erb"
 
 set :views, ['views']
 
 get "/" do
-  slim :index
+  erb :index
 end
 
 get "/gpio" do
-  slim :gpio
+  erb :gpio
 end
 
 get "/about" do
-  slim :about
+  erb :about
 end

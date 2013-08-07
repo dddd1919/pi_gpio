@@ -468,6 +468,7 @@ Expert.prototype.createList = function (containerId) {
 	}
 	
 	return box;
-} 
+}
+
 
 
