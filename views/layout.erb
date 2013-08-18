@@ -60,7 +60,7 @@
       $(".switch-right").text("OUT");
       $(".btn-onoff").click(function(){
         var $this = $(this);  //TODO why this
-        $.post("test", { onoff: $this.html()}, function(data,status){
+        $.post("test", { onoff: $this.html(), id: $this.parent('div').attr("id")}, function(data,status){
           $this.html(data);
         });
       });
