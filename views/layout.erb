@@ -58,6 +58,12 @@
     $(document).ready(function(){
       $(".switch-left").text("IN");
       $(".switch-right").text("OUT");
+      $(".btn-onoff").click(function(){
+        var $this = $(this);  //TODO why this
+        $.post("test", { onoff: $this.html(), id: $this.parent('div').attr("id")}, function(data,status){
+          $this.html(data);
+        });
+      });
     });
     </script>
 </html>
