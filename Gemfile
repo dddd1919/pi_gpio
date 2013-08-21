@@ -5,6 +5,7 @@ gem 'sinatra'
 
 gem 'slim'
 gem 'json'
+gem 'pi_piper'
 
 # group :production do
 #   gem 'rainbows'

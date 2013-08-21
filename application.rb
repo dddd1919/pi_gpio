@@ -1,7 +1,12 @@
+# encoding: utf-8
+require "rubygems"
 require "sinatra"
 require "erb"
+require "yaml"
+require './lib/pi_gpio.rb'
 # require "json"
-ON_OFF_SET = ["低电位", "高电位"]
+PIN_INFO = YAML::load(File.open("lib/gpio_info.yml"))
+PIN = Pi_gpio::Gpio.new(PIN_INFO)
 
 set :views, ['views']
 
@@ -10,7 +15,7 @@ get "/" do
 end
 
 get "/gpio" do
-  ## 初始化针脚，读取状态后发出信号
+  @pin_status = PIN.read_port_status
   erb :gpio
 end
 
@@ -19,10 +24,6 @@ get "/about" do
 end
 
 post "/set_pin" do
-  set = params["onoff"]
-  ## TODO 设置电位
-  retval_index = 1 - ON_OFF_SET.index(set)
-  ON_OFF_SET[retval_index]
 end
 
 get '/get_pin' do

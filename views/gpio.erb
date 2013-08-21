@@ -14,30 +14,32 @@
         <th><span class="label label-inverse">端口号</span></th>
         <th><span class="label label-inverse">输入输出</span></th>
       </tr>
+      <% @pin_status.each do |num, info| %>
+      <% if num % 2 == 1 %>
       <tbody>
-        <% for i in (1..13) do %>
         <tr>
           <td class="pbm">
-            <input type="checkbox" data-toggle="switch" />
+            <input type="checkbox" data-toggle="switch" <% check="" if info["io"] == "IN"%> <% disabled if info["name"].include?("GPIO")%> />
           </td>
-          <td><span class="badge badge-warning"><%= 2*i-1%></span></td>
+          <td><span class="badge badge-warning"><%= info["name"] %></span></td>
           <td>
-            <div class="btn-group" id=<%= 2*i-1%> data-toggle="buttons-checkbox">
+            <div class="btn-group" id=<%= 2*num-1%> data-toggle="buttons-checkbox">
+              <button type="button" class="btn btn-mini btn-success btn-onoff"><%= info["btn_text"] %></button>
+            </div>
+          </td>
+      <% else %>
+          <td>
+            <div class="btn-group" id=<%= 2*num%> data-toggle="buttons-checkbox">
               <button type="button" class="btn btn-mini btn-success btn-onoff">3.0V</button>
             </div>
           </td>
-          <td>
-            <div class="btn-group" id=<%= 2*i%> data-toggle="buttons-checkbox">
-              <button type="button" class="btn btn-mini btn-success btn-onoff">3.0V</button>
-            </div>
-          </td>
-          <td><span class="badge badge-warning"><%= 2*i %></span></td>
+          <td><span class="badge badge-warning"><%= info["name"] %></span></td>
           <td class="pbm">
-            <input type="checkbox" data-toggle="switch" />
+            <input type="checkbox" data-toggle="switch"  <% check="" if info["io"] == "IN"%> <% disabled if info["name"].include?("GPIO")%> />
           </td>
         </tr>
-        <% end %>
       </tbody>
+      <% end %>
     </table>
   </div>
 </div>
