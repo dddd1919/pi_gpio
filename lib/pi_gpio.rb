@@ -8,7 +8,7 @@ module Pi_gpio
 
     def initialize(pin_info)
       @pin_info = pin_info
-      replace_port(pin_info)
+      replace_port
     end
 
     def set_port(port, direction = :out, swich = :off)

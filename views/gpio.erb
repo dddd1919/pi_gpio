@@ -19,26 +19,27 @@
       <tbody>
         <tr>
           <td class="pbm">
-            <input type="checkbox" data-toggle="switch" <% check="" if info["io"] == "IN"%> <% disabled if info["name"].include?("GPIO")%> />
+            <input type="checkbox" data-toggle="switch" />
           </td>
-          <td><span class="badge badge-warning"><%= info["name"] %></span></td>
+          <td><span class="badge badge-warning"><%= info[:name] %></span></td>
           <td>
             <div class="btn-group" id=<%= 2*num-1%> data-toggle="buttons-checkbox">
-              <button type="button" class="btn btn-mini btn-success btn-onoff"><%= info["btn_text"] %></button>
+              <button type="button" class="btn btn-mini btn-success btn-onoff"><%= info[:btn_text] %></button>
             </div>
           </td>
       <% else %>
           <td>
             <div class="btn-group" id=<%= 2*num%> data-toggle="buttons-checkbox">
-              <button type="button" class="btn btn-mini btn-success btn-onoff">3.0V</button>
+              <button type="button" class="btn btn-mini btn-success btn-onoff"><%= info[:btn_text] %></button>
             </div>
           </td>
-          <td><span class="badge badge-warning"><%= info["name"] %></span></td>
+          <td><span class="badge badge-warning"><%= info[:name] %></span></td>
           <td class="pbm">
-            <input type="checkbox" data-toggle="switch"  <% check="" if info["io"] == "IN"%> <% disabled if info["name"].include?("GPIO")%> />
+            <input type="checkbox" data-toggle="switch" />
           </td>
         </tr>
       </tbody>
+      <% end %>
       <% end %>
     </table>
   </div>
