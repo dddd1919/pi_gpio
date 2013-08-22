@@ -47,5 +47,4 @@ module Pi_gpio
     end
 
   end
-
 end

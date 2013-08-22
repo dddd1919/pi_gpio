@@ -14,15 +14,16 @@
         btn_text:  低电位
 4:
         name:      5.0V
-        io:        DISABLE
-        btn_text:  低电位
+        io:        OUT
+        btn_text:  5V电源
+        btn_style: btn-danger
 5:
         name:      GPIO 3
         btn_text:  低电位
 6:
         name:      GROUND
         io:        DISABLE
-        btn_text:  地线
+        btn_text:  接地线
         btn_style: btn-inverse
 7:
         name:      GPIO 4
@@ -34,7 +35,7 @@
 9:
         name:      GROUND
         io:        DISABLE
-        btn_text:  地线
+        btn_text:  接地线
         btn_style: btn-inverse
 10:
         name:      GPIO 15
@@ -52,7 +53,7 @@
 14:
         name:      GROUND
         io:        DISABLE
-        btn_text:  地线
+        btn_text:  接地线
         btn_style: btn-inverse
 15:
         name:      GPIO 22
@@ -63,7 +64,7 @@
 17:
         name:      3.3V
         io:        DISABLE
-        btn_text:  3.3V电源
+        btn_text:  3V电源
         btn_style: btn-warning
 18:
         name:      GPIO 24
@@ -74,7 +75,7 @@
 20:
         name:      GROUND
         io:        DISABLE
-        btn_text:  地线
+        btn_text:  接地线
         btn_style: btn-inverse
 21:
         name:      GPIO 9
@@ -91,7 +92,7 @@
 25:
         name:      GROUND
         io:        DISABLE
-        btn_text:  地线
+        btn_text:  接地线
         btn_style: btn-inverse
 26:
         name:      GPIO 7
