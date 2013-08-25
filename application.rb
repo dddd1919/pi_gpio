@@ -21,7 +21,6 @@ get "/gpio" do
   # PIN_INFO.each { |num, pi| PIN_INFO[num] = pi.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}}
   # @pin_status = PIN_INFO
   @pin_status = PIN.read_port_status
-  @pin_status.each {|pp| p pp}
   erb :gpio
 end
 
