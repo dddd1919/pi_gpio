@@ -3,7 +3,7 @@ require "rubygems"
 require "sinatra"
 require "erb"
 require "yaml"
-require './lib/pi_gpio.rb'
+require 'lib/pi_gpio.rb'
 # require "json"
 SWITCH = ["低电位","高电位"]
 SWITCH_DATA = [:off, :on]
@@ -21,6 +21,7 @@ get "/gpio" do
   # PIN_INFO.each { |num, pi| PIN_INFO[num] = pi.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}}
   # @pin_status = PIN_INFO
   @pin_status = PIN.read_port_status
+  @pin_status.each {|pp| p pp}
   erb :gpio
 end
 
@@ -33,8 +34,13 @@ post "/set_pin" do
   port = params[:id].split[1]
   status = params[:onoff]
   result = status
+  p port
+  p SWITCH
+  p status
+  p SWITCH.index(status)
+  p SWITCH.index(status).class
   unless port.nil?
-    PIN.set_port(port, :out, SWIRCH_DATA[1 - SWITCH.index(status)])
+    PIN.set_port(port, :out, SWITCH_DATA[1 - SWITCH.index(status)])
     result = SWITCH[1 - SWITCH.index(status)]
   end
   return result
