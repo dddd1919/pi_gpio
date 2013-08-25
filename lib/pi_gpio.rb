@@ -36,7 +36,7 @@ module Pi_gpio
         if !info["name"].match(/GPIO \w+/).nil?
           pin = PiPiper::Pin.new(:pin => "#{info["name"].split.last}")
           pins_status[num].merge!(io:pin.direction)
-          btn_text = (pin.value == 1 ? "高电压" : "低电压")
+          btn_text = (pin.value == 1 ? "高电位" : "低电位")
           pins_status[num].merge!(btn_text:btn_text)
         else
           pins_status[num].merge!(io:info["io"])
