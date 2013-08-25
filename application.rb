@@ -34,11 +34,6 @@ post "/set_pin" do
   port = params[:id].split[1]
   status = params[:onoff]
   result = status
-  p port
-  p SWITCH
-  p status
-  p SWITCH.index(status)
-  p SWITCH.index(status).class
   unless port.nil?
     PIN.set_port(port, :out, SWITCH_DATA[1 - SWITCH.index(status)])
     result = SWITCH[1 - SWITCH.index(status)]
