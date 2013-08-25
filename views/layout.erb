@@ -59,11 +59,20 @@
       $(".switch-left").text("IN");
       $(".switch-right").text("OUT");
       $(".btn-onoff").click(function(){
-        var $this = $(this);  //TODO why this
-        $.post("test", { onoff: $this.html(), id: $this.parent('div').attr("id")}, function(data,status){
-          $this.html(data);
+        origin_class = $(this).attr("class");
+        var $this = $(this);
+        $.post("set_pin", { onoff: $this.html(), id: $this.parent('div').attr("id")}, function(data,status){
+          if ($this.html() == data)  //如果设置失败需要把按钮状态还原
+          {
+            $this.attr("class", origin_class)
+          }
+          else
+          {
+            $this.html(data);
+          }          
         });
       });
+      //TODO 输入输出切换，切换到输入要做轮询处理
     });
     </script>
 </html>
