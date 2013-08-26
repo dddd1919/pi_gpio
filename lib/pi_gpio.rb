@@ -19,7 +19,7 @@ module Pi_gpio
     def replace_port
       result = {}
       @pin_info.each do |num, info|
-        if !info["name"].match(/GPIO \s/).nil?
+        if !info["name"].match(/GPIO \w+/).nil?
           pin = PiPiper::Pin.new(:pin => "#{info["name"].split.last}", :direction => :out)
           status = pin.off
           result[num] = status
@@ -33,10 +33,10 @@ module Pi_gpio
       @pin_info.each do |num, info|
         pins_status[num] = {}
         pins_status[num].merge!(name:info["name"])
-        if !info["name"].match(/GPIO \s/).nil?
+        if !info["name"].match(/GPIO \w+/).nil?
           pin = PiPiper::Pin.new(:pin => "#{info["name"].split.last}")
           pins_status[num].merge!(io:pin.direction)
-          btn_text = (pin.value == 1 ? "高电压" : "低电压")
+          btn_text = (pin.read == 1 ? "高电位" : "低电位")
           pins_status[num].merge!(btn_text:btn_text)
         else
           pins_status[num].merge!(io:info["io"])

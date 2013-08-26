@@ -3,7 +3,7 @@ require "rubygems"
 require "sinatra"
 require "erb"
 require "yaml"
-require './lib/pi_gpio.rb'
+require 'lib/pi_gpio.rb'
 # require "json"
 SWITCH = ["低电位","高电位"]
 SWITCH_DATA = [:off, :on]
@@ -34,7 +34,7 @@ post "/set_pin" do
   status = params[:onoff]
   result = status
   unless port.nil?
-    PIN.set_port(port, :out, SWIRCH_DATA[1 - SWITCH.index(status)])
+    PIN.set_port(port, :out, SWITCH_DATA[1 - SWITCH.index(status)])
     result = SWITCH[1 - SWITCH.index(status)]
   end
   return result
