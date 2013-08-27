@@ -30,7 +30,7 @@ end
 
 ## 这部分接收针脚变化的ajax请求
 post "/set_pin" do
-  port = params[:id].split[1]
+  port = params[:id]
   status = params[:onoff]
   result = status
   unless port.nil?
