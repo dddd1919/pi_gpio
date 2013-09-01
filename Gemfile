@@ -13,3 +13,5 @@ gem 'pi_piper'
 
 gem 'thin'
 gem 'sinatra-contrib'
+
+gem 'faye'

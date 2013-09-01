@@ -6,6 +6,13 @@ String.prototype.repeat = function(num) {
 
 (function($) {
 
+$(function() {
+  var faye = new Faye.Client('http://localhost:3000/faye');
+  faye.subscribe('/messages/new', function (data) {
+    alert(data);
+  });
+});
+
   // Add segments to a slider
   $.fn.addSliderSegments = function (amount) {
     return this.each(function () {
