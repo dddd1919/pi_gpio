@@ -3,8 +3,10 @@ require "rubygems"
 require "sinatra"
 require "erb"
 require "yaml"
+require 'net/http'
+require 'uri'
 require 'lib/pi_gpio.rb'
-# require "json"
+require "json"
 SWITCH = ["低电位","高电位"]
 SWITCH_DATA = [:off, :on]
 PIN_INFO = YAML::load(File.open("lib/gpio_info.yml"))
@@ -47,3 +49,7 @@ post "/reset_pin" do
 end
 
 ##TODO 端口变为输入时使用长轮询实时刷新前端状态
+# params = {}
+# uri = URI.parse("http://localhost:3000/faye")
+# params["message"] = {"channel" => "/messages/new", "data" => "hello"}.to_json
+# result = Net::HTTP.post_form(uri, params)
