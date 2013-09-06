@@ -27,7 +27,7 @@ module Pi_gpio
         if !info["name"].match(/GPIO \w+/).nil?
           pin_obj = PiPiper::Pin.new(:pin => "#{info["name"].split.last}", :direction => :out)
           @pin_obj[info["name"]] = pin_obj
-          status = pin.off
+          status = pin_obj.off
           result[num] = status
         end
       end
@@ -47,6 +47,7 @@ module Pi_gpio
         else
           pins_status[num].merge!(io:info["io"])
           pins_status[num].merge!(btn_text:info["btn_text"])
+          pins_status[num].merge!(btn_style:info["btn_style"])
         end
       end
       return pins_status
