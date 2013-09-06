@@ -1,7 +1,7 @@
 <div class="row" style="margin-top:55">
   <div class="offset2 span3" style="margin-top:95">
     <form action = "#" method = "" align="center">
-      <a class="btn btn-danger btn-large disabled">刷新接口状态</a>
+      <a class="btn btn-danger btn-large">刷新接口状态</a>
     </form>
     <br />
     <br />
@@ -21,31 +21,27 @@
         <th><span class="label label-inverse">输入输出</span></th>
       </tr>
       <% @pin_status.each do |num, info| %>
-      <% if num % 2 == 1 %>
-      <tbody>
-        <tr>
-          <td class="pbm">
-            <input type="checkbox" data-toggle="switch" <%= "disabled" unless info[:name].include?("GPIO") %>/>
-          </td>
-          <td><span class="badge badge-warning"><%= info[:name] %></span></td>
-          <td bgcolor="black" width="80" align="center">
-            <div class="btn-group" id="<%= info[:name]%>" <%="data-toggle=buttons-checkbox" if info[:btn_style].nil?%>>
-              <button type="button" class="btn btn-mini <%=info[:btn_style].nil? ?  "btn-success btn-onoff" : info[:btn_style]%>"><%= info[:btn_text] %></button>
-            </div>
-          </td>
-      <% else %>
-          <td bgcolor="black" width="80" align="center">
-            <div class="btn-group" id="<%= info[:name]%>" <%="data-toggle=buttons-checkbox" if info[:btn_style].nil?%>>
-              <button type="button" class="btn btn-mini <%=info[:btn_style].nil? ?  "btn-success btn-onoff" : info[:btn_style]%>"><%= info[:btn_text] %></button>
-            </div>
-          </td>
-          <td><span class="badge badge-warning"><%= info[:name] %></span></td>
-          <td class="pbm">
-            <input type="checkbox" data-toggle="switch" <%= "disabled" unless info[:name].include?("GPIO") %>/>
-          </td>
-        </tr>
-      </tbody>
-      <% end %>
+        <% if num % 2 == 1 %>
+        <tbody>
+          <tr>
+            <td class="pbm" controller="pin-left">
+              <input type="checkbox" data-toggle="switch" <%= "disabled" unless info[:name].include?("GPIO") %>/>
+            </td>
+            <td info="pin-left" align="center"><span class="badge badge-warning"><%= info[:name] %></span></td>
+            <td class="pin-left" bgcolor="black" width="80" align="center">
+              <button type="button" id="<%= info[:name]%>" class="btn <%= info[:btn_style] || "btn-success btn-onoff"%>" <%="data-toggle=button" if info[:btn_style].nil?%>><%= info[:btn_text] %></button>
+            </td>
+        <% else %>
+            <td class="pin-right" bgcolor="black" width="80" align="center">
+              <button type="button" id="<%= info[:name]%>" class="btn <%= info[:btn_style] || "btn-success btn-onoff"%>" <%="data-toggle=button" if info[:btn_style].nil?%>><%= info[:btn_text] %></button>
+            </td>
+            <td info="pin-right" align="center"><span class="badge badge-warning"><%= info[:name] %></span></td>
+            <td class="pbm" controller="pin-right">
+              <input type="checkbox" data-toggle="switch" <%= "disabled" unless info[:name].include?("GPIO") %>/>
+            </td>
+          </tr>
+        </tbody>
+        <% end %>
       <% end %>
     </table>
   </div>

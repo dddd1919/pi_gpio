@@ -9,6 +9,7 @@
     <link href="css/flat-ui.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/favicon.ico">
     <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="http://localhost:3000/faye.js"%></script>
   </head>
 
   <body>
@@ -49,30 +50,8 @@
     <script src="js/jquery.tagsinput.js"></script>
     <script src="js/jquery.placeholder.js"></script>
     <script src="js/jquery.stacktable.js"></script>
-    <script src="http://vjs.zencdn.net/c/video.js"></script>
     <script src="js/application.js"></script>
     <script src="js/flatui-checkbox.js"></script>
     <script src="js/flatui-radio.js"></script>
     <script src="js/webiopi.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-      $(".switch-left").text("IN");
-      $(".switch-right").text("OUT");
-      $(".btn-onoff").click(function(){
-        origin_class = $(this).attr("class");
-        var $this = $(this);
-        $.post("set_pin", { onoff: $this.html(), id: $this.parent('div').attr("id")}, function(data,status){
-          if ($this.html() == data)  //如果设置失败需要把按钮状态还原
-          {
-            $this.attr("class", origin_class)
-          }
-          else
-          {
-            $this.html(data);
-          }          
-        });
-      });
-      //TODO 输入输出切换，切换到输入要做轮询处理
-    });
-    </script>
 </html>
