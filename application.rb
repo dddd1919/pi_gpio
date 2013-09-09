@@ -76,7 +76,9 @@ end
 
 def unwatch_pin(pin)
   retval = false
-  unless PIN_WATCH_THREAD[pin].nil?
+  if PIN_WATCH_THREAD[pin].nil?
+    retval = true
+  else
     PIN_WATCH_THREAD[pin].kill ## kill watch thread
     retval = !PIN_WATCH_THREAD.delete(pin).nil?
   end
