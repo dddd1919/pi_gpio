@@ -47,6 +47,7 @@ module Pi_gpio
         else
           pins_status[num].merge!(io:info["io"])
           pins_status[num].merge!(btn_text:info["btn_text"])
+          pins_status[num].merge!(btn_style:info["btn_style"])
         end
       end
       return pins_status
