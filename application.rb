@@ -5,8 +5,10 @@ require "erb"
 require "yaml"
 require 'net/http'
 require 'uri'
+require 'pi_piper'
 require 'lib/pi_gpio.rb'
 require "json"
+include PiPiper
 SWITCH = ["低电位","高电位"]
 SWITCH_DATA = [:off, :on]
 PIN_WATCH_THREAD = {}
