@@ -3,12 +3,8 @@ require "rubygems"
 require "sinatra"
 require "erb"
 require "yaml"
-require 'net/http'
-require 'uri'
-require 'pi_piper'
 require 'lib/pi_gpio.rb'
 require "json"
-include PiPiper
 SWITCH = ["低电位","高电位"]
 SWITCH_DATA = [:off, :on]
 PIN_WATCH_THREAD = {}
@@ -54,35 +50,9 @@ end
 post "/inout_switch" do
   retval = false
   if params[:direction].to_s == "in"
-    retval = watch_pin(params[:pin])
+    retval = PIN.watch_pin(params[:pin])
   else
-    retval = unwatch_pin(params[:pin])
+    retval = PIN.unwatch_pin(params[:pin])
   end
   return retval.to_s
-end
-
-def watch_pin(pin)
-  retval  = false
-  new_watch_thread = watch :pin => pin do
-    ## post pin changing message to faye server
-    params = {}
-    uri = URI.parse("http://localhost:3000/faye")
-    params["message"] = {"channel" => "/messages/new", "data" => {"pin" => pin, "switch" => SWITCH[value]}}.to_json
-    response = Net::HTTP.post_form(uri, params)
-    retval = JSON.parse(response.body)[0]["successful"]
-  end
-  ## save thread message to PIN_WATCH_THREAD
-  PIN_WATCH_THREAD[pin] = new_watch_thread
-  return true
-end
-
-def unwatch_pin(pin)
-  retval = false
-  if PIN_WATCH_THREAD[pin].nil?
-    retval = true
-  else
-    PIN_WATCH_THREAD[pin].kill ## kill watch thread
-    retval = !PIN_WATCH_THREAD.delete(pin).nil?
-  end
-  return retval
 end
