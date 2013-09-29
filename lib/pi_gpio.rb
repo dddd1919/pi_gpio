@@ -64,10 +64,11 @@ module Pi_gpio
         uri = URI.parse("http://localhost:3000/faye")
         params["message"] = {"channel" => "/messages/new", "data" => {"pin" => pin, "switch" => SWITCH[value]}}.to_json
         response = Net::HTTP.post_form(uri, params)
-        retval = JSON.parse(response.body)[0]["successful"]
+        puts "Watch pin #{pin} send #{JSON.parse(response.body)[0]['successful']}"
       end
       ## save thread message to PIN_WATCH_THREAD
       @pin_watch_thread[pin] = new_watch_thread
+      retval = true
       return retval
     end
 
