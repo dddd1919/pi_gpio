@@ -3,6 +3,7 @@ require "rubygems"
 require "sinatra"
 require "erb"
 require "yaml"
+require "socket"
 require 'lib/pi_gpio.rb'
 require "json"
 SWITCH = ["低电位","高电位"]
@@ -11,7 +12,11 @@ PIN_WATCH_THREAD = {}
 PIN_INFO = YAML::load(File.open("lib/gpio_info.yml"))
 PIN = Pi_gpio::Gpio.new(PIN_INFO)
 
-set :views, ['views']
+configure do
+  set :views, ['views']
+  set :faye_local_host, Socket.ip_address_list[1].ip_address
+end
+
 
 get "/" do
   erb :index

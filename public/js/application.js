@@ -6,15 +6,6 @@ String.prototype.repeat = function(num) {
 
 (function($) {
 
-  // faye client for monitor GPIO
-  $(function() {
-    var faye = new Faye.Client('http://localhost:3000/faye');
-    faye.subscribe('/messages/new', function (data) {
-      $('button[id="GPIO ' + data["pin"] + '"]').text(data["switch"]);
-      $('button[id="GPIO ' + data["pin"] + '"]').toggleClass('active');
-    });
-  });
-
   // Add segments to a slider
   $.fn.addSliderSegments = function (amount) {
     return this.each(function () {
