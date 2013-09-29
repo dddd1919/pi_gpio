@@ -1,5 +1,7 @@
 # encoding: utf-8
 require 'pi_piper'
+require 'net/http'
+require 'uri'
 
 module Pi_gpio
 
@@ -9,6 +11,7 @@ module Pi_gpio
     def initialize(pin_info)
       @pin_info = pin_info
       @pin_obj = {}
+      @pin_watch_thread = {}
       replace_port
     end
 
@@ -27,7 +30,7 @@ module Pi_gpio
         if !info["name"].match(/GPIO \w+/).nil?
           pin_obj = PiPiper::Pin.new(:pin => "#{info["name"].split.last}", :direction => :out)
           @pin_obj[info["name"]] = pin_obj
-          status = pin.off
+          status = pin_obj.off
           result[num] = status
         end
       end
@@ -47,9 +50,37 @@ module Pi_gpio
         else
           pins_status[num].merge!(io:info["io"])
           pins_status[num].merge!(btn_text:info["btn_text"])
+          pins_status[num].merge!(btn_style:info["btn_style"])
         end
       end
       return pins_status
+    end
+
+    def watch_pin(pin)
+      retval  = false
+      new_watch_thread = watch :pin => pin do
+        ## post pin changing message to faye server
+        params = {}
+        uri = URI.parse("http://localhost:3000/faye")
+        params["message"] = {"channel" => "/messages/new", "data" => {"pin" => pin, "switch" => SWITCH[value]}}.to_json
+        response = Net::HTTP.post_form(uri, params)
+        puts "Watch pin #{pin} send #{JSON.parse(response.body)[0]['successful']}"
+      end
+      ## save thread message to PIN_WATCH_THREAD
+      @pin_watch_thread[pin] = new_watch_thread
+      retval = true
+      return retval
+    end
+
+    def unwatch_pin(pin)
+      retval = false
+      if @pin_watch_thread[pin].nil?
+        retval = true
+      else
+        @pin_watch_thread[pin].kill ## kill watch thread
+        retval = !@pin_watch_thread.delete(pin).nil?
+      end
+      return retval
     end
 
   end
